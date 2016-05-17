@@ -52,7 +52,7 @@ public String getFileRef(String filename){
 
 public void buildHTML(String[] filenames) throws FileNotFoundException {
     
-    File file = new File("C:\\users\\filipe\\desktop\\root\\index.html");
+    File file = new File(root + "\\index.html");
     PrintWriter pw = new PrintWriter(file);
     
     pw.write(HTML_BEGIN);
