@@ -19,8 +19,13 @@ public class Main {
     ServerSocket serverSocket;
     int port = 6543;
     public static void main(String[] args) throws IOException{
+       new UDBNetworkServer().run();
+        
         
         new Main().runServer(); 
+        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
+
+	   discoveryThread.start();
     }
     
     
