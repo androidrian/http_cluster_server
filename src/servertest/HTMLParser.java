@@ -18,7 +18,8 @@ public class HTMLParser {
 
 String HTML_BEGIN = "<html>\r\n<body>\r\n";
 String HTML_END = "</body>\r\n</html>\r\n";
-String root = "C:\\Users\\Filipe\\Desktop\\root";
+String userName = new com.sun.security.auth.module.NTSystem().getName();
+String root = "C:\\Users\\"+userName+"\\Desktop\\root";
 
 
 public HTMLParser(){

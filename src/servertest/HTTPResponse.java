@@ -23,7 +23,8 @@ public class HTTPResponse {
     String response;
     
     //o caminho da pasta do servidor
-    String root = "C:\\Users\\Filipe\\Desktop\\root";
+    String userName = new com.sun.security.auth.module.NTSystem().getName();
+    String root = "C:\\Users\\"+userName+"\\Desktop\\root";
     
     
     public HTTPResponse(HTTPRequest request) {

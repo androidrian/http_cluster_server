@@ -20,7 +20,7 @@ public class Main {
     int port = 6543;
     public static void main(String[] args) throws IOException{
         
-        new Main().runServer();; 
+        new Main().runServer(); 
     }
     
     
