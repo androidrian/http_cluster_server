@@ -10,44 +10,40 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  *
  * @author Filipe
  */
-public class UDPNetworkDiscovery  {
+public class UDPNetworkDiscovery {
 
     public DatagramSocket ds;
     int port = 6845;
-    
-    public UDPNetworkDiscovery(){
-        
+
+    public UDPNetworkDiscovery() {
+
     }
+
     //eventualmente passar um bool como parametro
-    public void UDPBroadcast() throws SocketException{
-        
+    public void UDPBroadcast() throws SocketException, UnknownHostException {
+
         ds = new DatagramSocket();
         ds.setBroadcast(true);
-    
-        
 
-       byte[] sendData = "DISCOVERY_SERVER_REQUEST".getBytes();
+        byte[] sendData = "DISCOVERY_SERVER_REQUEST".getBytes();
 
-       DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), port);
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), port);
         try {
-            //
+            
             ds.send(sendPacket);
         } catch (IOException ex) {
             Logger.getLogger(UDPNetworkDiscovery.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-   System.out.println (getClass().getName() + ">>> Request Packet sent to: 255.255.255.255 (DEFAULT)");
+        System.out.println(getClass().getName() + ">>> Request Packet sent to: 255.255.255.255 (DEFAULT)");
     }
-    
-
-
 
 }
