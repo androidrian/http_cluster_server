@@ -36,7 +36,7 @@ public class UDPNetworkDiscovery  {
 
        byte[] sendData = "DISCOVERY_SERVER_REQUEST".getBytes();
 
-//       DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), port);
+       DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), port);
         try {
             //
             ds.send(sendPacket);

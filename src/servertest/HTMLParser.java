@@ -18,6 +18,7 @@ public class HTMLParser {
 
 String HTML_BEGIN = "<html>\r\n<body>\r\n";
 String HTML_END = "</body>\r\n</html>\r\n";
+String root = "C:\\Users\\Filipe\\Desktop\\root";
 
 
 public HTMLParser(){
@@ -36,7 +37,7 @@ public void printDirectoryListFilenames(String[] str) {
     }
 
 public String[] getDirectoryListFilenames() throws IllegalArgumentException{
-    File file = new File("C:\\Users\\Filipe\\Desktop\\root");
+    File file = new File(root);
         String[] str = file.list();
         
         return str;
