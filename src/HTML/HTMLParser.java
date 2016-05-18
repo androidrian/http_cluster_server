@@ -1,7 +1,7 @@
 /**
  * Gera um ficheiro HTML
  */
-package servertest;
+package HTML;
 
 import java.io.File;
 import java.io.FileNotFoundException;

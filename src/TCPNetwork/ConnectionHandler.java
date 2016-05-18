@@ -1,8 +1,9 @@
 /**
  * Esta class faz a gestão de todas as ligações
  */
-package servertest;
+package TCPNetwork;
 
+import HTML.HTMLParser;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;

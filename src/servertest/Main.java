@@ -5,27 +5,27 @@
  */
 package servertest;
 
+import Configuration.Configuration;
+import TCPNetwork.ConnectionHandler;
+import UDPNetwork.UDPNetworkServer;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
 public class Main {
 
     public static void main(String[] args) throws IOException {
-
+        new Configuration().run();
         new Main().runServer();
 
     }
 
     public void runServer() throws IOException {
+        Thread threadUDPServer = new UDPNetworkServer();
+        threadUDPServer.start();
 
-        Thread ch1 = new UDPNetworkServer();
-        ch1.start();
-
-        Thread ch = new ConnectionHandler();
-
-        ch.start();
+        Thread threadTCPServer = new ConnectionHandler();
+        threadTCPServer.start();
     }
 }
