@@ -5,7 +5,6 @@
  */
 package servertest;
 
-import Configuration.Configuration;
 import HTML.HTMLCreatorThread;
 import TCPNetwork.ConnectionHandler;
 import UDPNetwork.UDPNetworkServer;
@@ -17,7 +16,7 @@ import java.net.Socket;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        new Configuration().run();
+       
         new Main().runServer();
 
     }

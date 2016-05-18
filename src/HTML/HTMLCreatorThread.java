@@ -16,7 +16,6 @@ public class HTMLCreatorThread extends Thread {
             } catch (InterruptedException ex) {
                 Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("passa");
         }
     }
 }

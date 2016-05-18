@@ -5,27 +5,23 @@
  */
 package Configuration;
 
-import java.io.File;
-import java.io.IOException;
-import org.ini4j.Ini;
-
-/**
- *
- * @author JoaoMoura
- */
 public class Configuration {
 
-    public Configuration() {
+    public String udp_port;
+
+    public String tcp_port;
+
+    public String files_location;
+
+    public static String getFilesLocation() {
+       return ConfigurationReader.readUDP_Port();
     }
 
-    public void run() throws IOException {
-        Ini ini = new Ini(new File(".\\config.ini"));
-        System.out.println(ini.get("Server Configuration", "udp_port"));
-        System.out.println(ini.get("Server Configuration", "tcp_port"));
-        
-     String userName = new com.sun.security.auth.module.NTSystem().getName();
-        System.out.println(ini.get("Server Configuration", "files_location").replaceAll("@utilizador", userName));
-        
+    public static String getUDP_Port() {
+        return ConfigurationReader.readUDP_Port();
+    }
     
+    public static String getTCP_Port() {
+        return ConfigurationReader.readUDP_Port();
     }
 }
