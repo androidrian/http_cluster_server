@@ -12,10 +12,7 @@ import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Joao
- */
+
 public class UDBNetworkServer extends Thread{
     DatagramSocket socket;
 

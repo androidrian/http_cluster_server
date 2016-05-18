@@ -5,10 +5,6 @@
  */
 package servertest;
 
-/**
- *
- * @author Filipe
- */
 public class HTTPRequest {
     
     //1ª linha do request contem 3 partes --> 1-request, 2-nome 3-versao HTTP

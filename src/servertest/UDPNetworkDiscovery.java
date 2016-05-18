@@ -21,10 +21,10 @@ import java.util.logging.Logger;
  *
  * @author Filipe
  */
-public class UDPNetworkDiscovery {
+public class UDPNetworkDiscovery extends Thread{
 
     public DatagramSocket ds;
-    int port = 6845;
+    int port = 8888;
 
     public UDPNetworkDiscovery() {
 
@@ -32,13 +32,13 @@ public class UDPNetworkDiscovery {
 
     //eventualmente passar um bool como parametro para activar ou descativer o discovery
     public void UDPBroadcast() throws SocketException, UnknownHostException {
-
+        System.out.println("passa");
         ds = new DatagramSocket();
         ds.setBroadcast(true);
 
         byte[] sendData = "DISCOVERY_SERVER_REQUEST".getBytes();
 
-        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), port);
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("192.168.1.77"), port);
         try {
 
             ds.send(sendPacket);

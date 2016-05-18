@@ -10,41 +10,22 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- *
- * @author Filipe
- */
-public class Main {
-    private InetAddress ip;
-    ServerSocket serverSocket;
-    int port = 6543;
-    public static void main(String[] args) throws IOException{
-       new UDBNetworkServer().run();
-        
-        
-        new Main().runServer(); 
-        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
 
-	   discoveryThread.start();
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+
+        new Main().runServer();
+
     }
-    
-    
-    public void runServer() throws IOException{
-        System.out.println("Server has started...");
-        serverSocket = new ServerSocket(port);
-        //para aceitar as ligações
-        acceptRequests();
-    }
-    
-    private void acceptRequests() throws IOException{
-        while(true){ //aceita todos os requests (keep alive)
-            //ligação ao cliente é na forma de socket  
-            //que contém o stream para input e output
-            Socket s = serverSocket.accept();
-            ConnectionHandler ch = new ConnectionHandler(s);
-            
-            //ch é a thread, temos que iniciar usando o metodo start
-            ch.start();//chama o metodo run
-        }
+
+    public void runServer() throws IOException {
+
+        Thread ch1 = new UDBNetworkServer();
+        ch1.start();
+
+        Thread ch = new ConnectionHandler();
+
+        ch.start();
     }
 }

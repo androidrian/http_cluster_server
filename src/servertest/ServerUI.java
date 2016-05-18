@@ -7,10 +7,7 @@ package servertest;
 
 import javax.swing.JTextArea;
 
-/**
- *
- * @author Filipe
- */
+
 public class ServerUI extends javax.swing.JFrame {
 
     /**

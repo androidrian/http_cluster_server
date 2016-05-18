@@ -5,6 +5,11 @@
  */
 package servertest;
 
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Filipe
@@ -14,7 +19,15 @@ public class DiscoveryThread implements Runnable
 
     @Override
     public void run() {
-        
+
+        try {
+            new UDPNetworkDiscovery().UDPBroadcast();
+       
+        } catch (SocketException ex) {
+            Logger.getLogger(DiscoveryThread.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(DiscoveryThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static DiscoveryThread getInstance(){
