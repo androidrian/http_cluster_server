@@ -7,11 +7,11 @@ package servertest;
 
 import HTML.HTMLCreatorThread;
 import TCPNetwork.TCP_HTTP_Server;
+
+import UDPNetwork.UDPNetworkDiscovery;
 import UDPNetwork.UDPNetworkServer;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+
 
 public class Main {
 
@@ -30,5 +30,8 @@ public class Main {
 
         Thread threadTCPServer = new TCP_HTTP_Server();
         threadTCPServer.start();
+        
+        Thread threadUDPNetworkDiscovery = new UDPNetworkDiscovery();
+        threadUDPNetworkDiscovery.start();
     }
 }
