@@ -6,6 +6,7 @@
 package servertest;
 
 import Configuration.Configuration;
+import HTML.HTMLCreatorThread;
 import TCPNetwork.ConnectionHandler;
 import UDPNetwork.UDPNetworkServer;
 import java.io.IOException;
@@ -22,6 +23,9 @@ public class Main {
     }
 
     public void runServer() throws IOException {
+        HTMLCreatorThread htmlThread= new HTMLCreatorThread();
+        htmlThread.start();
+        
         Thread threadUDPServer = new UDPNetworkServer();
         threadUDPServer.start();
 
