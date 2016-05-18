@@ -1,35 +1,18 @@
-/**
- * Gera um ficheiro HTML
- */
 package HTML;
 
 import Configuration.Configuration;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 
 public class HTMLParser {
 
-    String HTML_BEGIN = "<html>\n";
+    String HTML_BEGIN = "<!DOCTYPE html>\n<html>\n";
     String HTML_END = "</table>\n</body>\n</html>\n";
 
     public HTMLParser() {
-
-    }
-
-    public void printDirectoryListFilenames(String[] str) {
-        System.out.println("*************************************");
-        System.out.println("List Directory");
-        System.out.println("*************************************");
-        for (String names : str) {
-            System.out.println(names);
-        }
-        System.out.println("*************************************");
 
     }
 
@@ -40,24 +23,9 @@ public class HTMLParser {
         return str;
     }
 
-    public String[] findDuplicateFiles(String[] fileList) {
-
-        String[] fileListNonDuplicate = new String[fileList.length];
-        int count = 0;
-        Arrays.sort(fileList);
-
-        for (int i = 0; i < fileList.length; i++) {
-            if (!fileList[i].equalsIgnoreCase(fileList[i + 1])) {
-                fileListNonDuplicate[count] = fileList[i];
-                count++;
-            }
-        }
-        return fileListNonDuplicate;
-    }
-
     public String getFileRef(String filename) {
         String ref;
-        ref = "<a href=" + "\"" + filename + "\"" + ">" + filename + "</a>";
+        ref = "<a href=" + "\"" + filename + "\"" + " download>" + filename + "</a>";
 
         return ref;
     }
@@ -70,7 +38,7 @@ public class HTMLParser {
         pw.write(HTML_BEGIN);
         //head
         pw.write("<head>\n");
-        pw.write(title("List Directory"));
+        pw.write("<title> List Directory </title>\r\n");
         pw.write("</head>\n");
 
         
@@ -93,10 +61,5 @@ public class HTMLParser {
         pw.write(HTML_END);
         pw.flush();
         pw.close();
-    }
-
-    public String title(String s) {
-        String title = "<title>" + s + "</title>\r\n";
-        return title;
     }
 }

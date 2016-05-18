@@ -100,7 +100,6 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
 
         //abre o ficheiro mencionado no request
         File f = new File(Configuration.getFilesLocation() + request);
-        System.out.println("passa");
         try {
             //para ler o ficheiro
             FileInputStream fis = new FileInputStream(f);
