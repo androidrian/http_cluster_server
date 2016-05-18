@@ -43,9 +43,15 @@ public class UDPNetworkServer extends Thread {
                 System.out.println(getClass().getName() + ">>>Discovery packet received from: " + packet.getAddress().getHostAddress());
 
                 System.out.println(getClass().getName() + ">>>Packet received; data: " + new String(packet.getData()));
-
+                
+                
                 //See if the packet holds the right command (message)
+                System.out.println("RECEBIDO!!!!");
                 String message = new String(packet.getData()).trim();
+                String[] fileList = message.split(":");
+                for(String s : fileList){
+                    System.out.println(s);
+                }
 
                 if (message.equals("DISCOVER_FUIFSERVER_REQUEST")) {
 
