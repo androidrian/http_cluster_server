@@ -6,7 +6,7 @@
 package servertest;
 
 import HTML.HTMLCreatorThread;
-import TCPNetwork.ConnectionHandler;
+import TCPNetwork.TCPNetworkServer;
 import UDPNetwork.UDPNetworkServer;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -28,7 +28,7 @@ public class Main {
         Thread threadUDPServer = new UDPNetworkServer();
         threadUDPServer.start();
 
-        Thread threadTCPServer = new ConnectionHandler();
+        Thread threadTCPServer = new TCPNetworkServer();
         threadTCPServer.start();
     }
 }

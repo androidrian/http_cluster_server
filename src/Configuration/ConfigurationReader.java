@@ -35,7 +35,9 @@ class ConfigurationReader {
     protected static String readFiles_Location() {
         ini = getIniFile();
         if (ini != null) {
-            return ini.get("Server Configuration", "files_location");
+            String files_location = ini.get("Server Configuration", "files_location");
+            String userName = new com.sun.security.auth.module.NTSystem().getName();
+            return files_location.replaceAll("@utilizador", userName);
         }
         return "";
     }

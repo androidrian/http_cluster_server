@@ -14,14 +14,14 @@ public class Configuration {
     public String files_location;
 
     public static String getFilesLocation() {
-       return ConfigurationReader.readUDP_Port();
+        return ConfigurationReader.readFiles_Location();
     }
 
-    public static String getUDP_Port() {
-        return ConfigurationReader.readUDP_Port();
+    public static int getUDP_Port() {
+        return Integer.parseInt(ConfigurationReader.readUDP_Port());
     }
-    
-    public static String getTCP_Port() {
-        return ConfigurationReader.readUDP_Port();
+
+    public static int getTCP_Port() {
+        return Integer.parseInt(ConfigurationReader.readTCP_Port());
     }
 }

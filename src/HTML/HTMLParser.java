@@ -3,6 +3,7 @@
  */
 package HTML;
 
+import Configuration.Configuration;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -16,8 +17,6 @@ public class HTMLParser {
 
     String HTML_BEGIN = "<html>\n";
     String HTML_END = "</table>\n</body>\n</html>\n";
-    String userName = new com.sun.security.auth.module.NTSystem().getName();
-    String root = "C:\\Users\\" + userName + "\\Desktop\\root";
 
     public HTMLParser() {
 
@@ -35,7 +34,7 @@ public class HTMLParser {
     }
 
     public String[] getDirectoryListFilenames() throws IllegalArgumentException {
-        File file = new File(root);
+        File file = new File(Configuration.getFilesLocation());
         String[] str = file.list();
 
         return str;
@@ -65,7 +64,7 @@ public class HTMLParser {
 
     public void buildHTML(String[] filenames) throws FileNotFoundException,UnknownHostException {
 
-        File file = new File(root + "\\index.html");
+        File file = new File(Configuration.getFilesLocation() + "\\index.html");
         PrintWriter pw = new PrintWriter(file);
 
         pw.write(HTML_BEGIN);
