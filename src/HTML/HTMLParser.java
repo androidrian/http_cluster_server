@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 
 public class HTMLParser {
@@ -26,7 +27,7 @@ public HTMLParser(){
 public void printDirectoryListFilenames(String[] str) {
         System.out.println("*************************************");
         System.out.println("List Directory");
-        System.out.print("*************************************");
+        System.out.println("*************************************");
         for (String names : str) {
             System.out.println(names);
         }
@@ -39,6 +40,21 @@ public String[] getDirectoryListFilenames() throws IllegalArgumentException{
         String[] str = file.list();
         
         return str;
+}
+
+public String[] findDuplicateFiles(String[] fileList){
+    
+    String[] fileListNonDuplicate = new String[fileList.length];
+    int count = 0;
+    Arrays.sort(fileList);
+    
+    for(int i =0; i< fileList.length; i++){
+        if (!fileList[i].equalsIgnoreCase(fileList[i+1])){
+           fileListNonDuplicate[count] = fileList[i];
+           count++;
+        }
+    }
+    return fileListNonDuplicate;
 }
 
 public String getFileRef(String filename){
