@@ -19,7 +19,7 @@ public class Configuration {
     }
 
     public void run() throws IOException {
-        Ini ini = new Ini(new File("C:\\Users\\JoaoMoura\\Documents\\NetBeansProjects\\rcomp-2016\\config.ini"));
+        Ini ini = new Ini(new File(".\\config.ini"));
         System.out.println(ini.get("Server Configuration", "udp_port"));
         System.out.println(ini.get("Server Configuration", "tcp_port"));
         
