@@ -21,7 +21,7 @@ public class Main {
 
     public void runServer() throws IOException {
 
-        Thread ch1 = new UDBNetworkServer();
+        Thread ch1 = new UDPNetworkServer();
         ch1.start();
 
         Thread ch = new ConnectionHandler();

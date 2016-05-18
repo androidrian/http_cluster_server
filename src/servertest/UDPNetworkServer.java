@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class UDBNetworkServer extends Thread{
+public class UDPNetworkServer extends Thread{
     DatagramSocket socket;
 
     
