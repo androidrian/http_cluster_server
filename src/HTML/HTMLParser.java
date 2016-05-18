@@ -8,23 +8,22 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Arrays;
-
 
 public class HTMLParser {
 
+    String HTML_BEGIN = "<html>\n";
+    String HTML_END = "</table>\n</body>\n</html>\n";
+    String userName = new com.sun.security.auth.module.NTSystem().getName();
+    String root = "C:\\Users\\" + userName + "\\Desktop\\root";
 
-String HTML_BEGIN = "<html>\r\n<body>\r\n";
-String HTML_END = "</body>\r\n</html>\r\n";
-String userName = new com.sun.security.auth.module.NTSystem().getName();
-String root = "C:\\Users\\"+userName+"\\Desktop\\root";
+    public HTMLParser() {
 
+    }
 
-public HTMLParser(){
-    
-}
-
-public void printDirectoryListFilenames(String[] str) {
+    public void printDirectoryListFilenames(String[] str) {
         System.out.println("*************************************");
         System.out.println("List Directory");
         System.out.println("*************************************");
@@ -35,53 +34,70 @@ public void printDirectoryListFilenames(String[] str) {
 
     }
 
-public String[] getDirectoryListFilenames() throws IllegalArgumentException{
-    File file = new File(root);
+    public String[] getDirectoryListFilenames() throws IllegalArgumentException {
+        File file = new File(root);
         String[] str = file.list();
-        
+
         return str;
-}
+    }
 
-public String[] findDuplicateFiles(String[] fileList){
-    
-    String[] fileListNonDuplicate = new String[fileList.length];
-    int count = 0;
-    Arrays.sort(fileList);
-    
-    for(int i =0; i< fileList.length; i++){
-        if (!fileList[i].equalsIgnoreCase(fileList[i+1])){
-           fileListNonDuplicate[count] = fileList[i];
-           count++;
+    public String[] findDuplicateFiles(String[] fileList) {
+
+        String[] fileListNonDuplicate = new String[fileList.length];
+        int count = 0;
+        Arrays.sort(fileList);
+
+        for (int i = 0; i < fileList.length; i++) {
+            if (!fileList[i].equalsIgnoreCase(fileList[i + 1])) {
+                fileListNonDuplicate[count] = fileList[i];
+                count++;
+            }
         }
+        return fileListNonDuplicate;
     }
-    return fileListNonDuplicate;
-}
 
-public String getFileRef(String filename){
-    String ref;
-    ref = "<a href="+"\""+filename+"\""+">"+filename+"</a><br>\r\n";  
-    
-    return ref;
-}
+    public String getFileRef(String filename) {
+        String ref;
+        ref = "<a href=" + "\"" + filename + "\"" + ">" + filename + "</a>";
 
-public void buildHTML(String[] filenames) throws FileNotFoundException {
-    
-    File file = new File(root + "\\index.html");
-    PrintWriter pw = new PrintWriter(file);
-    
-    pw.write(HTML_BEGIN);
-    pw.write(htmlTitle("List Directory")); //não está a funcionar, por um titulo, ver consturção HTML (não é importante)
-    for(String s : filenames){
-        pw.write(getFileRef(s));
+        return ref;
     }
-    pw.write(HTML_END);
-    pw.flush();
-    pw.close();
-}
 
-public String htmlTitle(String s){
-    String title = "<title>" +s+ "</title>\r\n";
-    return title;
-}
-}
+    public void buildHTML(String[] filenames) throws FileNotFoundException,UnknownHostException {
 
+        File file = new File(root + "\\index.html");
+        PrintWriter pw = new PrintWriter(file);
+
+        pw.write(HTML_BEGIN);
+        //head
+        pw.write("<head>\n");
+        pw.write(title("List Directory"));
+        pw.write("</head>\n");
+
+        
+        pw.write("<th>");pw.write(InetAddress.getLocalHost().getHostAddress());pw.write("</th>\n");
+        
+        pw.write("<body>\n");
+        pw.write("<tr>\n");
+        pw.write("<table border=\"1\" cellpadding=\"5\" cellspacing=\"5\">\n");
+        pw.write("<th>");pw.write("List Names");pw.write("</th>\n");
+        pw.write("</tr>\n");
+        
+        for (String s : filenames) {
+            pw.write("<tr>\n");
+            pw.write("<td>");
+            pw.write(getFileRef(s));
+            pw.write("</td>\n");
+            pw.write("</tr>\n");
+        }
+        
+        pw.write(HTML_END);
+        pw.flush();
+        pw.close();
+    }
+
+    public String title(String s) {
+        String title = "<title>" + s + "</title>\r\n";
+        return title;
+    }
+}
