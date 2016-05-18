@@ -18,7 +18,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TCPNetworkServer extends Thread { //ao extender para Thread, esta class torna-se numa Thread
+public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta class torna-se numa Thread
 
     //DatagramSocket dataSocket = new DatagramSocket(6843);
     byte[] receivedData = new byte[1024];
@@ -38,7 +38,7 @@ public class TCPNetworkServer extends Thread { //ao extender para Thread, esta c
         try {
             serverSocket = new ServerSocket(Configuration.getTCP_Port());
         } catch (IOException ex) {
-            Logger.getLogger(TCPNetworkServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         while (true) {
@@ -62,7 +62,7 @@ public class TCPNetworkServer extends Thread { //ao extender para Thread, esta c
                         }
                         System.out.println(sReq); //para mostrar o request
                     } catch (IOException ex) {
-                        Logger.getLogger(TCPNetworkServer.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //criamos o request
                     String req = HTTPRequest(sReq);
@@ -82,7 +82,7 @@ public class TCPNetworkServer extends Thread { //ao extender para Thread, esta c
                     e.printStackTrace();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(TCPNetworkServer.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -121,12 +121,12 @@ public class TCPNetworkServer extends Thread { //ao extender para Thread, esta c
         } catch (FileNotFoundException ex) {
             response = response.replace("200", "404");
             System.out.println("Ficheiro não existente.");
-            Logger.getLogger(HTTPResponse.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
             //senao conseguir encontrar o ficheiro dá erro 404
         } catch (IOException ex) {
             //se for outro erro dá erro interno 500
             response = response.replace("200", "500");
-            Logger.getLogger(HTTPResponse.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
         }
         return response;
     }
