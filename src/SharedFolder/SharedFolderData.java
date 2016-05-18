@@ -7,7 +7,9 @@ package SharedFolder;
 
 import Configuration.Configuration;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -15,26 +17,26 @@ import java.util.Arrays;
  */
 public class SharedFolderData {
 
-    private static String[] findDuplicateFiles(String[] fileList) {
+    List<FolderInformation> listFolderInfo = new ArrayList<>();
 
-        String[] fileListNonDuplicate = new String[fileList.length];
-        int count = 0;
-        Arrays.sort(fileList);
-
-        for (int i = 0; i < fileList.length; i++) {
-            if (!fileList[i].equalsIgnoreCase(fileList[i + 1])) {
-                fileListNonDuplicate[count] = fileList[i];
-                count++;
-            }
-        }
-        return fileListNonDuplicate;
-    }
-
+//    private static String[] findDuplicateFiles(String[] fileList) {
+//        String[] fileListNonDuplicate = new String[fileList.length];
+//        int count = 0;
+//        Arrays.sort(fileList);
+//
+//        for (int i = 0; i < fileList.length - 1; i++) {
+//            if (!fileList[i].equalsIgnoreCase(fileList[i + 1])) {
+//                fileListNonDuplicate[count] = fileList[i];
+//                count++;
+//            }
+//        }
+//        return fileListNonDuplicate;
+//    }
+    
     public static String[] getDirectoryListFilenames() throws IllegalArgumentException {
         File file = new File(Configuration.getFilesLocation());
         String[] filelist = file.list();
-        System.out.println(Configuration.getFilesLocation());
-        //filelist = findDuplicateFiles(filelist);
+
         return filelist;
     }
 }
