@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import servertest.Main;
 import servertest.Main;
+import servertest.Main;
 
 /**
  *
@@ -147,6 +148,9 @@ public class ServerUI extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton2MousePressed
 
+    private void LogTextArea(String str){
+        jTextArea1.append(str);
+    }
     /**
      * @param args the command line arguments
      */
@@ -173,13 +177,7 @@ public class ServerUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ServerUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+     
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
