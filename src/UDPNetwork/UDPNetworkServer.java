@@ -32,7 +32,6 @@ public class UDPNetworkServer extends Thread {
 
         try {
             //Keep a socket open to listen to all the UDP trafic that is destined for this port
-
             socket = new DatagramSocket(Configuration.getUDP_Port(), InetAddress.getByName("0.0.0.0"));
 
             socket.setBroadcast(true);
@@ -52,7 +51,6 @@ public class UDPNetworkServer extends Thread {
                 String messageReceived = new String(packet.getData()).trim();
 
                 //packet recebido
-                
                 if (messageReceived.compareTo("Share Folder") == 0) {
 
                     //serialize o vetor de ficheiros
@@ -73,8 +71,8 @@ public class UDPNetworkServer extends Thread {
                     //enviar o share folder local
                     String packetAddress = packet.getAddress().toString().replaceAll("/", "");
                     if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
- 
-                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), packet.getPort());
+
+                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), Configuration.getUDP_Port());
 
                         System.out.println("\nServidor UDP >>> Enviado packet com Share Folder para: " + sendPacket.getAddress().getHostAddress());
 
