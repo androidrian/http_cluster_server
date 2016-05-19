@@ -73,7 +73,9 @@ public class UDPNetworkServer extends Thread {
                     //enviar o share folder local
                     if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
                         byte[] sendData = "Packet Recebido".getBytes();
-                        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
+                        
+                        String packet_address= packet.getAddress().toString().replaceAll("/", "");
+                                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(packet_address), Configuration.getUDP_Port());
 
                         System.out.println("\nServidor UDP >>> Enviada confirmação da receção de packet para: " + sendPacket.getAddress().getHostAddress());
 
