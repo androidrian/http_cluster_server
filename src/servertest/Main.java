@@ -6,6 +6,7 @@
 package servertest;
 
 import HTML.HTMLCreatorThread;
+import SharedFolders.SharedFoldersManager;
 import TCPNetwork.TCP_HTTP_Server;
 
 import UDPNetwork.UDPNetworkClient;
@@ -22,16 +23,17 @@ public class Main {
     }
 
     public void runServer() throws IOException {
-        HTMLCreatorThread htmlThread= new HTMLCreatorThread();
+        SharedFoldersManager SFManager = new SharedFoldersManager();
+        
+        HTMLCreatorThread htmlThread= new HTMLCreatorThread(SFManager);
         htmlThread.start();
         
-        Thread threadUDPServer = new UDPNetworkServer();
+        Thread threadUDPServer = new UDPNetworkServer(SFManager);
         threadUDPServer.start();
 
         Thread threadTCPServer = new TCP_HTTP_Server();
         threadTCPServer.start();
         
-        Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
-        threadUDPNetworkDiscovery.start();
+    
     }
 }

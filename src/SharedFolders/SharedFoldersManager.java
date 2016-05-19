@@ -10,7 +10,6 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,12 +18,17 @@ import java.util.List;
  */
 public class SharedFoldersManager {
 
-    List<SharedFolder> listSharedFolders = new ArrayList<>();
-
-    public SharedFoldersManager() throws UnknownHostException {
-        listSharedFolders.add(getLocalSharedFolder());
+     List<SharedFolder> listSharedFolders;
+    
+    public SharedFoldersManager() {
+       this.newlistSharedFolders();
     }
+    
 
+    public void newlistSharedFolders() {
+        listSharedFolders= new ArrayList<>();
+    }
+    
     public List<SharedFolder> getlistSharedFolders() {
         return listSharedFolders;
     }
@@ -41,7 +45,7 @@ public class SharedFoldersManager {
     }
 
     public static SharedFolder getLocalSharedFolder() throws UnknownHostException {
-String tcp_port = ""+Configuration.getTCP_Port();
+        String tcp_port = "" + Configuration.getTCP_Port();
         System.out.println(InetAddress.getLocalHost().getHostName());
         return new SharedFolder(InetAddress.getLocalHost().getHostAddress(), InetAddress.getLocalHost().getHostName(), tcp_port, getDirectoryListFilenames());
 

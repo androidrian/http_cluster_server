@@ -23,7 +23,6 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
     //DatagramSocket dataSocket = new DatagramSocket(6843);
     byte[] receivedData = new byte[1024];
     byte[] sendData = new byte[1024];
-    HTMLParser hp = new HTMLParser();
 
     ServerSocket serverSocket;
     Socket s;

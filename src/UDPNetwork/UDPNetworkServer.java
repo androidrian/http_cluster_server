@@ -21,6 +21,12 @@ public class UDPNetworkServer extends Thread {
 
     DatagramSocket socket;
 
+    SharedFoldersManager SFManager;
+
+    public UDPNetworkServer(SharedFoldersManager SFManager) {
+        this.SFManager = SFManager;
+    }
+
     @Override
     public void run() {
 

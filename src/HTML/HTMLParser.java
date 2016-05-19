@@ -1,6 +1,7 @@
 package HTML;
 
 import Configuration.Configuration;
+import SharedFolders.SharedFoldersManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -12,8 +13,10 @@ public class HTMLParser {
     String HTML_BEGIN = "<!DOCTYPE html>\n<html>\n";
     String HTML_END = "</table>\n</body>\n</html>\n";
 
-    public HTMLParser() {
+    SharedFoldersManager SFManager;
 
+    public HTMLParser(SharedFoldersManager SFManager) {
+        this.SFManager = SFManager;
     }
 
     public String[] getDirectoryListFilenames() throws IllegalArgumentException {
@@ -30,7 +33,7 @@ public class HTMLParser {
         return ref;
     }
 
-    public void buildHTML(String[] filenames) throws FileNotFoundException,UnknownHostException {
+    public void buildHTML(String[] filenames) throws FileNotFoundException, UnknownHostException {
 
         File file = new File(Configuration.getFilesLocation() + "\\index.html");
         PrintWriter pw = new PrintWriter(file);
@@ -41,15 +44,18 @@ public class HTMLParser {
         pw.write("<title> List Directory </title>\r\n");
         pw.write("</head>\n");
 
-        
-        pw.write("<th>");pw.write(InetAddress.getLocalHost().getHostAddress());pw.write("</th>\n");
-        
+        pw.write("<th>");
+        pw.write(InetAddress.getLocalHost().getHostAddress());
+        pw.write("</th>\n");
+
         pw.write("<body>\n");
         pw.write("<tr>\n");
         pw.write("<table border=\"1\" cellpadding=\"5\" cellspacing=\"5\">\n");
-        pw.write("<th>");pw.write("List Names");pw.write("</th>\n");
+        pw.write("<th>");
+        pw.write("List Names");
+        pw.write("</th>\n");
         pw.write("</tr>\n");
-        
+
         for (String s : filenames) {
             pw.write("<tr>\n");
             pw.write("<td>");
@@ -57,7 +63,7 @@ public class HTMLParser {
             pw.write("</td>\n");
             pw.write("</tr>\n");
         }
-        
+
         pw.write(HTML_END);
         pw.flush();
         pw.close();

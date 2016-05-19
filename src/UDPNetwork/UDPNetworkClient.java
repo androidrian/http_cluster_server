@@ -30,8 +30,6 @@ import java.util.logging.Logger;
  */
 public class UDPNetworkClient extends Thread {
 
-    HTMLParser hp = new HTMLParser();
-
     public DatagramSocket ds;
     public DatagramSocket dl;
 
