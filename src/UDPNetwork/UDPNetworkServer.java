@@ -41,15 +41,14 @@ public class UDPNetworkServer extends Thread {
                 DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
 
                 socket.receive(packet);
-               
-                
+
                 //mensagem recebida
                 String messageReceived = new String(packet.getData()).trim();
-                System.out.println(messageReceived);
 
                 //packet recebido
+                String packetAddress = packet.getAddress().toString().replaceAll("/", "");
                 if (messageReceived.compareTo("Share Folder") == 0) {
-                    System.out.println("passa");
+
                     //serialize o vetor de ficheiros
                     String sharedFolderInfo = "";
                     SharedFolder localSharedFolder = SharedFoldersManager.getLocalSharedFolder();
@@ -66,30 +65,24 @@ public class UDPNetworkServer extends Thread {
                     sharedFolderInfo += fileNames;
                     byte[] directoryListData = sharedFolderInfo.getBytes();
 
-                    
-                    String packetAddress = "" + packet.getAddress();
-                    packetAddress = packetAddress.replaceAll("/", "");
-                    
                     //enviar o share folder local
                     if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
-                        byte[] sendData = "Packet Recebido".getBytes();
-                        
-                        String packet_address= packet.getAddress().toString().replaceAll("/", "");
-                                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(packet_address), Configuration.getUDP_Port());
 
-                        System.out.println("\nServidor UDP >>> Enviada confirmação da receção de packet para: " + sendPacket.getAddress().getHostAddress());
+                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), Configuration.getUDP_Port());
+
+                        System.out.println("\nServidor UDP >>> Enviado packet com Share Folder para: " + sendPacket.getAddress().getHostAddress());
 
                         socket.send(sendPacket);
                     }
 
-                    System.out.println("Servidor UDP >>> Packet enviado com sucesso para: " + packet.getAddress());
-                
                 } else {
-                    System.out.println("\nServidor UDP >>> Packet recebido de: " + new String(packet.getData()).trim());
 
+                    System.out.println("\nServidor UDP >>> Recebido packet com Share Folder de: " + packetAddress);
+
+                    String[] fileList = messageReceived.split(":");
+                    
+                    System.out.println("\n"+fileList.toString());
                 }
-                String message = new String(packet.getData()).trim();
-                String[] fileList = message.split(":");
 
             }
 
