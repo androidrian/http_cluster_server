@@ -25,15 +25,21 @@ public class Main {
     public void runServer() throws IOException {
         SharedFoldersManager SFManager = new SharedFoldersManager();
         
-        HTMLCreatorThread htmlThread= new HTMLCreatorThread(SFManager);
-        htmlThread.start();
         
         Thread threadUDPServer = new UDPNetworkServer(SFManager);
         threadUDPServer.start();
 
+        
+        
+    HTMLCreatorThread htmlThread= new HTMLCreatorThread(SFManager);
+        htmlThread.start();
+        
+        
         Thread threadTCPServer = new TCP_HTTP_Server();
         threadTCPServer.start();
         
-    
+        Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
+                threadUDPNetworkDiscovery.start();
+                
     }
 }
