@@ -8,7 +8,7 @@ package servertest;
 import HTML.HTMLCreatorThread;
 import TCPNetwork.TCP_HTTP_Server;
 
-import UDPNetwork.UDPNetworkDiscovery;
+import UDPNetwork.UDPNetworkClient;
 import UDPNetwork.UDPNetworkServer;
 import java.io.IOException;
 
@@ -31,7 +31,7 @@ public class Main {
         Thread threadTCPServer = new TCP_HTTP_Server();
         threadTCPServer.start();
         
-        Thread threadUDPNetworkDiscovery = new UDPNetworkDiscovery();
+        Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
         threadUDPNetworkDiscovery.start();
     }
 }

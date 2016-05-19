@@ -5,6 +5,7 @@
  */
 package UDPNetwork;
 
+import Configuration.Configuration;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -24,46 +25,40 @@ public class UDPNetworkServer extends Thread {
         try {
             //Keep a socket open to listen to all the UDP trafic that is destined for this port
 
-            socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"));
+            socket = new DatagramSocket(Configuration.getUDP_Port(), InetAddress.getByName("0.0.0.0"));
 
             socket.setBroadcast(true);
 
             while (true) {
 
-                System.out.println(getClass().getName() + ">>>Ready to receive broadcast packets!");
+                System.out.println("\nServidor UDP >>> Pronto a receber broadcast packets!");
 
-                //Receive a packet
+                //receber um packet
                 byte[] recvBuf = new byte[15000];
 
                 DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
 
                 socket.receive(packet);
 
-                //Packet received
-                System.out.println(getClass().getName() + ">>>Discovery packet received from: " + packet.getAddress().getHostAddress());
+                //packet recebido
+                System.out.println("\nServidor UDP >>> Packet recebido de: " + packet.getAddress().getHostAddress());
 
-                System.out.println(getClass().getName() + ">>>Packet received; data: " + new String(packet.getData()));
-                
-                
-                //See if the packet holds the right command (message)
-                System.out.println("RECEBIDO!!!!");
+                //System.out.println("Servidor UDP >>> Packet recebido: " + new String(packet.getData()));
                 String message = new String(packet.getData()).trim();
                 String[] fileList = message.split(":");
-                for(String s : fileList){
-                    System.out.println(s);
-                }
 
-                if (message.equals("DISCOVER_FUIFSERVER_REQUEST")) {
+                byte[] sendData = "PODE-SE LIGAR".getBytes();
 
-                    byte[] sendData = "DISCOVER_FUIFSERVER_RESPONSE".getBytes();
+                //enviar uma resposta
+                String packetAddress = "" + packet.getAddress();
+                packetAddress = packetAddress.replaceAll("/", "");
 
-                    //Send a response
+                if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
                     DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
 
+                    System.out.println("\nServidor UDP >>> Enviar confirmação da receção de packet para: " + sendPacket.getAddress().getHostAddress());
+
                     socket.send(sendPacket);
-
-                    System.out.println(getClass().getName() + ">>>Sent packet to: " + sendPacket.getAddress().getHostAddress());
-
                 }
 
             }

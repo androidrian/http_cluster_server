@@ -40,9 +40,10 @@ public class SharedFoldersManager {
         return filelist;
     }
 
-    private SharedFolder getLocalSharedFolder() throws UnknownHostException {
-
-        return new SharedFolder("127.0.0.1", InetAddress.getLocalHost().getHostName(), "", getDirectoryListFilenames());
+    public static SharedFolder getLocalSharedFolder() throws UnknownHostException {
+String tcp_port = ""+Configuration.getTCP_Port();
+        System.out.println(InetAddress.getLocalHost().getHostName());
+        return new SharedFolder(InetAddress.getLocalHost().getHostAddress(), InetAddress.getLocalHost().getHostName(), tcp_port, getDirectoryListFilenames());
 
     }
 
