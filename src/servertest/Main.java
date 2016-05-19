@@ -29,7 +29,9 @@ public class Main {
         Thread threadUDPServer = new UDPNetworkServer(SFManager);
         threadUDPServer.start();
 
-        
+         Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
+                threadUDPNetworkDiscovery.start();
+                
         
     HTMLCreatorThread htmlThread= new HTMLCreatorThread(SFManager);
         htmlThread.start();
@@ -38,8 +40,6 @@ public class Main {
         Thread threadTCPServer = new TCP_HTTP_Server();
         threadTCPServer.start();
         
-        Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
-                threadUDPNetworkDiscovery.start();
-                
+       
     }
 }
