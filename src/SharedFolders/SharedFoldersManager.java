@@ -11,6 +11,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,17 +20,17 @@ import java.util.List;
  */
 public class SharedFoldersManager {
 
-     List<SharedFolder> listSharedFolders;
-    
+    List<SharedFolder> listSharedFolders;
+
     public SharedFoldersManager() {
-       this.newlistSharedFolders();
+        this.newlistSharedFolders();
     }
-    
 
     public void newlistSharedFolders() {
-        listSharedFolders= new ArrayList<>();
+        listSharedFolders = new ArrayList<>();
+        this.addSharedFolder(getLocalSharedFolder());
     }
-    
+
     public List<SharedFolder> getlistSharedFolders() {
         return listSharedFolders;
     }
@@ -44,11 +46,15 @@ public class SharedFoldersManager {
         return filelist;
     }
 
-    public static SharedFolder getLocalSharedFolder() throws UnknownHostException {
+    public static SharedFolder getLocalSharedFolder() {
         String tcp_port = "" + Configuration.getTCP_Port();
-        System.out.println(InetAddress.getLocalHost().getHostName());
-        return new SharedFolder(InetAddress.getLocalHost().getHostAddress(), InetAddress.getLocalHost().getHostName(), tcp_port, getDirectoryListFilenames());
 
+        try {
+            return new SharedFolder(InetAddress.getLocalHost().getHostAddress(), InetAddress.getLocalHost().getHostName(), tcp_port, getDirectoryListFilenames());
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(SharedFoldersManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new SharedFolder("", "", "", new String[1]);
     }
 
     //    private static String[] findDuplicateFiles(String[] fileList) {

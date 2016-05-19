@@ -83,8 +83,12 @@ public class UDPNetworkServer extends Thread {
                 } else {
 
                     System.out.println("\nServidor UDP >>> Recebido packet com Share Folder de: " + packetAddress);
-                    System.out.println(packet.getAddress().getHostName().replaceAll(".lan", ""));
+
+                    String hostname = packet.getAddress().getHostName().replaceAll(".lan", "");
+                    String tcpport = "" + packet.getPort();
                     String[] fileList = messageReceived.split(":");
+
+                    SFManager.addSharedFolder(new SharedFolder(packetAddress, hostname, tcpport, fileList));
 
                     System.out.println("\n" + messageReceived);
                 }

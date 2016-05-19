@@ -1,12 +1,14 @@
 package HTML;
 
 import Configuration.Configuration;
+import SharedFolders.SharedFolder;
 import SharedFolders.SharedFoldersManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
 
 public class HTMLParser {
 
@@ -35,6 +37,14 @@ public class HTMLParser {
 
     public void buildHTML(String[] filenames) throws FileNotFoundException, UnknownHostException {
 
+        List<SharedFolder> listSharedFolders = SFManager.getlistSharedFolders();
+
+        for (SharedFolder sf : listSharedFolders) {
+            System.out.println(sf.getIpv4());
+            System.out.println(sf.getMachineName());
+            System.out.println(sf.getTcpPort());
+
+        }
         File file = new File(Configuration.getFilesLocation() + "\\index.html");
         PrintWriter pw = new PrintWriter(file);
 

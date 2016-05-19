@@ -36,7 +36,7 @@ public class HTMLCreatorThread extends Thread {
             }
             try {
 
-                HTMLCreatorThread.sleep(1000);
+                HTMLCreatorThread.sleep(10000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
             }
