@@ -72,8 +72,8 @@ public class UDPNetworkServer extends Thread {
 
                     //enviar o share folder local
                     if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
-
-                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), packet.getPort());
+  
+                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), Configuration.getUDP_Port());
 
                         System.out.println("\nServidor UDP >>> Enviado packet com Share Folder para: " + sendPacket.getAddress().getHostAddress());
 
@@ -85,7 +85,7 @@ public class UDPNetworkServer extends Thread {
                     System.out.println("\nServidor UDP >>> Recebido packet com Share Folder de: " + packetAddress);
 
                     String hostname = packet.getAddress().getHostName().replaceAll(".lan", "");
-                    String tcpport = "" + packet.getPort();
+                    String tcpport = "" + Configuration.getTCP_Port();
                     String[] fileList = messageReceived.split(":");
 
                     SFManager.addSharedFolder(new SharedFolder(packetAddress, hostname, tcpport, fileList));
