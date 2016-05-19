@@ -52,7 +52,7 @@ public class UDPNetworkServer extends Thread {
                 String messageReceived = new String(packet.getData()).trim();
 
                 //packet recebido
-                String packetAddress = packet.getAddress().toString().replaceAll("/", "");
+                
                 if (messageReceived.compareTo("Share Folder") == 0) {
 
                     //serialize o vetor de ficheiros
@@ -71,9 +71,10 @@ public class UDPNetworkServer extends Thread {
                     byte[] directoryListData = sharedFolderFiles.getBytes();
 
                     //enviar o share folder local
+                    String packetAddress = packet.getAddress().toString().replaceAll("/", "");
                     if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
-  
-                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), Configuration.getUDP_Port());
+ 
+                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), packet.getPort());
 
                         System.out.println("\nServidor UDP >>> Enviado packet com Share Folder para: " + sendPacket.getAddress().getHostAddress());
 
@@ -82,6 +83,7 @@ public class UDPNetworkServer extends Thread {
 
                 } else {
 
+                    String packetAddress = packet.getAddress().toString().replaceAll("/", "");
                     System.out.println("\nServidor UDP >>> Recebido packet com Share Folder de: " + packetAddress);
 
                     String hostname = packet.getAddress().getHostName().replaceAll(".lan", "");
