@@ -44,33 +44,21 @@ public class UDPNetworkClient extends Thread {
             dl = new DatagramSocket();
             ds.setBroadcast(true);
 
-            //serialize o vetor de ficheiros
-            String sharedFolderInfo = "";
-            SharedFolder localSharedFolder = SharedFoldersManager.getLocalSharedFolder();
+            
+            
+            
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            ObjectOutputStream oos = new ObjectOutputStream(baos);
+//            oos.writeObject(directoryFileList);
+//            oos.close();
 
-            sharedFolderInfo += localSharedFolder.getMachineName();
-            sharedFolderInfo += "|";
-
-            String[] directoryFileList = localSharedFolder.getListFilesNames();
-
-            String fileNames = "";
-            for (int i = 0; i < directoryFileList.length; i++) {
-                fileNames = fileNames + directoryFileList[i] + ":";
-            }
-            sharedFolderInfo += fileNames;
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(directoryFileList);
-            oos.close();
-
-            byte[] directoryListData = sharedFolderInfo.getBytes();
+            
 
             DatagramPacket directoryListPacket;
             DatagramPacket sendPacket;
-
+byte[] sendData = "Packet Recebido".getBytes();
             System.out.println("\nCliente UDP >>> Request Packet sent to: 255.255.255.255");
-            directoryListPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName("255.255.255.255"), Configuration.getUDP_Port());
+            directoryListPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), Configuration.getUDP_Port());
             dl.send(directoryListPacket);
 
 //            //fazer o broadcast do UDP para descobrir os servidores ativos
