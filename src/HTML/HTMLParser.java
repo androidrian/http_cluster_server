@@ -37,14 +37,22 @@ public class HTMLParser {
 
     public void buildHTML(String[] filenames) throws FileNotFoundException, UnknownHostException {
 
+        
+        //////////Informação a colocar no html/////////////////////
         List<SharedFolder> listSharedFolders = SFManager.getlistSharedFolders();
 
         for (SharedFolder sf : listSharedFolders) {
             System.out.println(sf.getIpv4());
             System.out.println(sf.getMachineName());
             System.out.println(sf.getTcpPort());
-
+            for (String file : sf.getListFilesNames()) {
+                
+                //System.out.println("\n"+file);
+            }
         }
+        ////////////////////////////////////////////////////////
+        
+        
         File file = new File(Configuration.getFilesLocation() + "\\index.html");
         PrintWriter pw = new PrintWriter(file);
 

@@ -28,9 +28,6 @@ public class Main {
         
         Thread threadUDPServer = new UDPNetworkServer(SFManager);
         threadUDPServer.start();
-
-        
-                
         
     HTMLCreatorThread htmlThread= new HTMLCreatorThread(SFManager);
         htmlThread.start();

@@ -21,9 +21,9 @@ public class HTMLCreatorThread extends Thread {
 
             try {
 
-                 Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
+                Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
                 threadUDPNetworkDiscovery.start();
-                
+
                 HTMLParser hp = new HTMLParser(this.SFManager);
                 hp.buildHTML(SharedFoldersManager.getDirectoryListFilenames());
 
@@ -36,7 +36,7 @@ public class HTMLCreatorThread extends Thread {
             }
             try {
 
-                HTMLCreatorThread.sleep(7000);
+                HTMLCreatorThread.sleep(5000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
             }
