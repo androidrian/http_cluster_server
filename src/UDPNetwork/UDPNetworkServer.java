@@ -50,11 +50,9 @@ public class UDPNetworkServer extends Thread {
                 if (messageReceived.compareTo("Share Folder") == 0) {
 
                     //serialize o vetor de ficheiros
-                    String sharedFolderInfo = "";
                     SharedFolder localSharedFolder = SharedFoldersManager.getLocalSharedFolder();
 
-                    sharedFolderInfo += localSharedFolder.getMachineName();
-                    sharedFolderInfo += "|";
+                    String sharedFolderFiles = "";
 
                     String[] directoryFileList = localSharedFolder.getListFilesNames();
 
@@ -62,13 +60,14 @@ public class UDPNetworkServer extends Thread {
                     for (int i = 0; i < directoryFileList.length; i++) {
                         fileNames = fileNames + directoryFileList[i] + ":";
                     }
-                    sharedFolderInfo += fileNames;
-                    byte[] directoryListData = sharedFolderInfo.getBytes();
+                    sharedFolderFiles += fileNames;
+
+                    byte[] directoryListData = sharedFolderFiles.getBytes();
 
                     //enviar o share folder local
                     if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
 
-                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), Configuration.getUDP_Port());
+                        DatagramPacket sendPacket = new DatagramPacket(directoryListData, directoryListData.length, InetAddress.getByName(packetAddress), packet.getPort());
 
                         System.out.println("\nServidor UDP >>> Enviado packet com Share Folder para: " + sendPacket.getAddress().getHostAddress());
 
@@ -78,10 +77,10 @@ public class UDPNetworkServer extends Thread {
                 } else {
 
                     System.out.println("\nServidor UDP >>> Recebido packet com Share Folder de: " + packetAddress);
-
+                    System.out.println(packet.getAddress().getHostName().replaceAll(".lan", ""));
                     String[] fileList = messageReceived.split(":");
-                    
-                    System.out.println("\n"+fileList.toString());
+
+                    System.out.println("\n" + messageReceived);
                 }
 
             }
