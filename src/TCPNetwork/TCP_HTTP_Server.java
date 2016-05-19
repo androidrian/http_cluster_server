@@ -5,7 +5,7 @@ package TCPNetwork;
 
 import Configuration.Configuration;
 import HTML.HTMLParser;
-import SharedFolder.SharedFolderData;
+import SharedFolders.SharedFoldersManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

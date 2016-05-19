@@ -1,6 +1,6 @@
 package HTML;
 
-import SharedFolder.SharedFolderData;
+import SharedFolders.SharedFoldersManager;
 import java.io.FileNotFoundException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
@@ -13,7 +13,7 @@ public class HTMLCreatorThread extends Thread {
         while (true) {
             HTMLParser hp = new HTMLParser();
             try {
-                hp.buildHTML(SharedFolderData.getDirectoryListFilenames());
+                hp.buildHTML(SharedFoldersManager.getDirectoryListFilenames());
                 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
