@@ -41,22 +41,25 @@ public class UDPNetworkServer extends Thread {
                 socket.receive(packet);
 
                 //packet recebido
-                System.out.println("\nServidor UDP >>> Packet recebido de: " + packet.getAddress().getHostAddress());
+                if ((new String(packet.getData())).compareTo("Packet Recebido") == 0) {
 
-                //System.out.println("Servidor UDP >>> Packet recebido: " + new String(packet.getData()));
+                    System.out.println("Servidor UDP >>> Packet enviado com sucesso para: " + packet.getAddress());
+                } else {
+                    System.out.println("\nServidor UDP >>> Packet recebido de: " + packet.getAddress().getHostAddress());
+
+                }
                 String message = new String(packet.getData()).trim();
                 String[] fileList = message.split(":");
-
-                byte[] sendData = "PODE-SE LIGAR".getBytes();
 
                 //enviar uma resposta
                 String packetAddress = "" + packet.getAddress();
                 packetAddress = packetAddress.replaceAll("/", "");
 
                 if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
+                    byte[] sendData = "Packet Recebido".getBytes();
                     DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
 
-                    System.out.println("\nServidor UDP >>> Enviar confirmação da receção de packet para: " + sendPacket.getAddress().getHostAddress());
+                    System.out.println("\nServidor UDP >>> Enviada confirmação da receção de packet para: " + sendPacket.getAddress().getHostAddress());
 
                     socket.send(sendPacket);
                 }
