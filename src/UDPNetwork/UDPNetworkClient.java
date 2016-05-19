@@ -44,56 +44,20 @@ public class UDPNetworkClient extends Thread {
             dl = new DatagramSocket();
             ds.setBroadcast(true);
 
-            
-            
-            
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            ObjectOutputStream oos = new ObjectOutputStream(baos);
-//            oos.writeObject(directoryFileList);
-//            oos.close();
-
-            
-
-            DatagramPacket directoryListPacket;
             DatagramPacket sendPacket;
-byte[] sendData = "Packet Recebido".getBytes();
+            byte[] sendData = "Share Folder".getBytes();
+            
             System.out.println("\nCliente UDP >>> Request Packet sent to: 255.255.255.255");
-            directoryListPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), Configuration.getUDP_Port());
-            dl.send(directoryListPacket);
+            
+            sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), Configuration.getUDP_Port());
+            
+            dl.send(sendPacket);
 
-//            //fazer o broadcast do UDP para descobrir os servidores ativos
-//            //waiting for response 
-//            long startTime = System.currentTimeMillis(); //fetch starting time
-//            while (false || (System.currentTimeMillis() - startTime) < 30000) {
-//                byte[] recBuff = new byte[512];
-//                byte[] recListDataBuff = new byte[1024];
-//
-//                try {
-//                    DatagramPacket receivePacket = new DatagramPacket(recBuff, recBuff.length);
-//                    ds.receive(receivePacket);
-//
-//                    DatagramPacket receiveDataListPacket = new DatagramPacket(recListDataBuff, recListDataBuff.length);
-//                    dl.receive(receiveDataListPacket);
-//
-//                    System.out.println("\nCliente UDP >>> Packet recebido com sucesso pelo servidor: " + receivePacket.getAddress());
-//
-//                    String message2 = new String(receiveDataListPacket.getData());
-//
-//                    String message = new String(receivePacket.getData()).trim();
-//           
-//                        System.out.println("\nCliente UDP >>> Packet received from:" + receivePacket.getAddress());
-//                    
-//
-//                } catch (IOException e) {
-//
-//                }
-//                ds.close();
-//           }
         } catch (UnknownHostException ex) {
             Logger.getLogger(UDPNetworkClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(UDPNetworkClient.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
     }
 

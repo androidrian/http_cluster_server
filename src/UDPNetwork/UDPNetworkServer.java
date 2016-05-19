@@ -41,11 +41,15 @@ public class UDPNetworkServer extends Thread {
                 DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
 
                 socket.receive(packet);
-//System.out.println("passa");
+               
+                
+                //mensagem recebida
+                String messageReceived = new String(packet.getData()).trim();
+                System.out.println(messageReceived);
 
                 //packet recebido
-                if ((new String(packet.getData())).compareTo("Share Folder") == 0) {
-                    
+                if (messageReceived.compareTo("Share Folder") == 0) {
+                    System.out.println("passa");
                     //serialize o vetor de ficheiros
                     String sharedFolderInfo = "";
                     SharedFolder localSharedFolder = SharedFoldersManager.getLocalSharedFolder();
@@ -62,10 +66,11 @@ public class UDPNetworkServer extends Thread {
                     sharedFolderInfo += fileNames;
                     byte[] directoryListData = sharedFolderInfo.getBytes();
 
-                    //enviar uma resposta
+                    
                     String packetAddress = "" + packet.getAddress();
                     packetAddress = packetAddress.replaceAll("/", "");
-
+                    
+                    //enviar o share folder local
                     if ((InetAddress.getLocalHost().getHostAddress()).compareTo(packetAddress) != 0) {
                         byte[] sendData = "Packet Recebido".getBytes();
                         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
@@ -78,7 +83,7 @@ public class UDPNetworkServer extends Thread {
                     System.out.println("Servidor UDP >>> Packet enviado com sucesso para: " + packet.getAddress());
                 
                 } else {
-                    System.out.println("\nServidor UDP >>> Packet recebido de: " + packet.getAddress().getHostAddress());
+                    System.out.println("\nServidor UDP >>> Packet recebido de: " + new String(packet.getData()).trim());
 
                 }
                 String message = new String(packet.getData()).trim();
