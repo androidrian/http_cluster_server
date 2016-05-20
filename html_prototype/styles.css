@@ -51,6 +51,11 @@ h1 {
     outline: none;
 }
 
+h2 {
+    font-size: 0.8em;
+    color: #c3c3c3;
+}
+
 .main-container {
     display: block;
     float: none;
@@ -62,6 +67,7 @@ h1 {
     overflow: hidden;
 }
 
+.serverHeader,
 .file-list {
     display: none;
 }

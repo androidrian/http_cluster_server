@@ -8,6 +8,11 @@
             $(".server-container h1").click(function() {
                 $(this).parent().children(".file-list").slideToggle();
             });
+            $(".server-container").hover(function() {
+                $(this).children(".serverHeader").slideToggle();
+            },function() {
+                $(this).children(".serverHeader").slideToggle();
+            });
         });
     </script>
 </head>
@@ -16,6 +21,9 @@
         <div class="column">
             <div class="server-container">
                 <h1>Server 1</h1>
+                <div class="serverHeader">
+                    <h2>127.0.0.1:8080</h2>
+                </div>
                 <div class="file-list">
                     <a class="pdf" title="Ficheiro 1" href="http://qqcoisa/ficheiro.aaa">Ficheiro 1</a>
                     <a class="docx" title="Ficheiro 2" href="http://qqcoisa/ficheiro.aaa">Ficheiro 2</a>
