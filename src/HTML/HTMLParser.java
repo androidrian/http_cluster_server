@@ -239,11 +239,13 @@ public class HTMLParser {
             }
         }
         
-        ret = "<div class=\"column\">";
+        ret = "<div class=\"main-container\">";
+        ret += "<div class=\"column\">";
         ret += leftCol;
         ret += "</div>";
         ret += "<div class=\"column\">";
         ret += rightCol;
+        ret += "</div>";
         ret += "</div>";
         
         return ret;
