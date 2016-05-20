@@ -8,8 +8,8 @@ package servertest;
 import HTML.HTMLCreatorThread;
 import SharedFolders.SharedFoldersManager;
 import TCPNetwork.TCP_HTTP_Server;
+import UI.MainUI;
 
-import UDPNetwork.UDPNetworkClient;
 import UDPNetwork.UDPNetworkServer;
 import java.io.IOException;
 
@@ -17,9 +17,9 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-       
+       MainUI mainUI = new MainUI();
         new Main().runServer();
-
+        
     }
 
     public void runServer() throws IOException {
