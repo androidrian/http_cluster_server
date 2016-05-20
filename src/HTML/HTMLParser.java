@@ -258,6 +258,7 @@ public class HTMLParser {
         pw.write(HTML_BEGIN);
         
         pw.write("\t<head>\n");
+        pw.write("\t\t<meta charset=\"UTF-8\"/>");
         pw.write("\t\t<title> List Directory </title>\r\n");
         pw.write(this.headGeneration());
         pw.write("\t</head>\n");
