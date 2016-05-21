@@ -31,26 +31,30 @@ public class ServerManager {
         this.threadTCPServer = new TCP_HTTP_Server();
     }
 
-    public void startServer()  {
-System.out.println(this.threadUDPServer.getState());
+    public void startServer() {
 
+        String udpState = this.threadUDPServer.getState().toString();
+        String tcpState = this.threadTCPServer.getState().toString();
+        String htmlState = this.htmlThread.getState().toString();
 
-if((this.threadUDPServer.getState().toString()).compareTo("TERMINATED")==0){
-    
-  
+        if (udpState.compareTo("TERMINATED") == 0 && tcpState.compareTo("TERMINATED") == 0 && htmlState.compareTo("TERMINATED") == 0) {
 
-       this.threadUDPServer = new UDPNetworkServer(SFManager);
-    this.threadUDPServer.start();
+            this.threadUDPServer = new UDPNetworkServer(SFManager);
+            this.htmlThread = new HTMLCreatorThread(SFManager);
+            this.threadTCPServer = new TCP_HTTP_Server();
 
-}else if (!this.threadUDPServer.isAlive()) {
-            
-            
             this.threadUDPServer.start();
             this.htmlThread.start();
             this.threadTCPServer.start();
 
-        } else {
-            System.out.println("\n>>> Server already started !!");
+        } else if (udpState.compareTo("NEW") == 0 && tcpState.compareTo("NEW") == 0 && htmlState.compareTo("NEW") == 0) {
+
+            this.threadUDPServer.start();
+            this.htmlThread.start();
+            this.threadTCPServer.start();
+
+        } else if (udpState.compareTo("RUNNABLE") == 0 || tcpState.compareTo("RUNNABLE") == 0 || htmlState.compareTo("RUNNABLE") == 0) {
+            System.out.println("\n>>> Servidor com processos ativos!!");
         }
     }
 
