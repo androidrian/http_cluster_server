@@ -57,7 +57,7 @@ public class SharedFoldersManager {
         return new SharedFolder("", "", "", new String[1]);
     }
 
-    //    private static String[] findDuplicateFiles(String[] fileList) {
+//    private static String[] findDuplicateFiles(String[] fileList) {
 //        String[] fileListNonDuplicate = new String[fileList.length];
 //        int count = 0;
 //        Arrays.sort(fileList);

@@ -3,17 +3,16 @@ package HTML;
 import Configuration.Configuration;
 import SharedFolders.SharedFolder;
 import SharedFolders.SharedFoldersManager;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
 public class HTMLParser {
-
-    String HTML_BEGIN = "<!DOCTYPE html>\n<html>\n";
-    String HTML_END = "\n</html>\n";
 
     SharedFoldersManager SFManager;
 
@@ -251,11 +250,11 @@ public class HTMLParser {
         return ret;
     }
 
-    public void buildHTML(String[] filenames) throws FileNotFoundException, UnknownHostException {
+    public void buildHTML(String[] filenames) throws FileNotFoundException, IOException {
         File file = new File(Configuration.getFilesLocation() + "\\index.html");
         PrintWriter pw = new PrintWriter(file);
 
-        pw.write(HTML_BEGIN);
+        pw.write("<!DOCTYPE html>\n<html>\n");
         
         pw.write("\t<head>\n");
         pw.write("\t\t<meta charset=\"UTF-8\"/>");
@@ -267,7 +266,7 @@ public class HTMLParser {
         pw.write(this.bodyGeneration());
         pw.write("\t</body>");
 
-        pw.write(HTML_END);
+        pw.write("\n</html>\n");
         pw.flush();
         pw.close();
     }

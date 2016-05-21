@@ -17,25 +17,14 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-       MainUI mainUI = new MainUI();
-        new Main().runServer();
+       MainUI mainUI = new MainUI(new ServerManager());
+       
+       mainUI.run();
+        
         
     }
 
-    public void runServer() throws IOException {
-        SharedFoldersManager SFManager = new SharedFoldersManager();
-        
-        
-        Thread threadUDPServer = new UDPNetworkServer(SFManager);
-        threadUDPServer.start();
-        
-    HTMLCreatorThread htmlThread= new HTMLCreatorThread(SFManager);
-        htmlThread.start();
-        
-        
-        Thread threadTCPServer = new TCP_HTTP_Server();
-        threadTCPServer.start();
-        
-       
-    }
+  
+
+ 
 }

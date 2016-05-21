@@ -5,12 +5,17 @@
  */
 package UI;
 
+import Configuration.Configuration;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,23 +28,33 @@ import javax.swing.plaf.FontUIResource;
 import servertest.Main;
 import servertest.Main;
 import servertest.Main;
+import servertest.ServerManager;
 
 /**
  *
  * @author Filipe
  */
 public class MainUI extends javax.swing.JFrame {
- private int xPos, yPos;
+
+    private int xPos, yPos;
     private Dimension screenSize;
+    private final ServerManager serverManager;
+
     /**
      * Creates new form ServerGUI
+     *
+     * @param serverManager
      */
-    public MainUI() {
+    public MainUI(ServerManager serverManager) {
+        this.serverManager = serverManager;
+
+    }
+
+    public void run() {
         initComponents();
         editComponents();
-        
     }
-    
+
     public void definirFonte(FontUIResource f, ColorUIResource color) {
         try {
             for (UIManager.LookAndFeelInfo info
@@ -74,14 +89,9 @@ public class MainUI extends javax.swing.JFrame {
             }
         }
     }
+
     private void editComponents() {
 
-//         try {
-//            BufferedImage fundo = ImageIO.read(new File("img/fundo.png"));
-//            this.setContentPane(new Imagem(fundo));
-//        } catch (IOException ie) {
-//        }
-//    
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         xPos = (int) (screenSize.getWidth() / 2) - (this.getWidth() / 2);
         yPos = (int) (screenSize.getHeight() / 2) - (this.getHeight() / 2);
@@ -93,13 +103,12 @@ public class MainUI extends javax.swing.JFrame {
         this.setLocation(xPos, yPos);
 
         this.setResizable(false);
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-       // this.setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon1.png"));
+        // this.setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon1.png"));
         this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.black));
         this.setVisible(true);
 
-   
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,6 +163,11 @@ public class MainUI extends javax.swing.JFrame {
         jButtonAbrirPagina.setBackground(new java.awt.Color(0, 51, 204));
         jButtonAbrirPagina.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAbrirPagina.setText("Abrir Página HTML");
+        jButtonAbrirPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAbrirPaginaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,12 +179,16 @@ public class MainUI extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButtonTerminarServidor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonIniciarServidor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonAbrirPagina, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
-                        .addGap(30, 30, 30)
+                        .addGap(0, 28, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonAbrirPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonIniciarServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonTerminarServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -180,13 +198,16 @@ public class MainUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonIniciarServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonTerminarServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addComponent(jButtonAbrirPagina))
-                    .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonIniciarServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonTerminarServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAbrirPagina)
+                        .addGap(53, 53, 53)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,61 +218,35 @@ public class MainUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonIniciarServidorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIniciarServidorMousePressed
-        try {
-            new Main().runServer();
-        } catch (IOException ex) {
-            Logger.getLogger(MainUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        this.serverManager.startServer();
+
     }//GEN-LAST:event_jButtonIniciarServidorMousePressed
 
     private void jButtonTerminarServidorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTerminarServidorMousePressed
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  this.serverManager.stopServer();
+
     }//GEN-LAST:event_jButtonTerminarServidorMousePressed
 
     private void jButtonTerminarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerminarServidorActionPerformed
-        // TODO add your handling code here:
+      
+
+
     }//GEN-LAST:event_jButtonTerminarServidorActionPerformed
 
-    private void LogTextArea(String str){
-        jTextAreaConsola.append(str);
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void jButtonAbrirPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirPaginaActionPerformed
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-     
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainUI().setVisible(true);
-            }
-        });
-        
-    }
+            URI uri = new URI("http://localhost:" + Configuration.getTCP_Port() + "/index.html");
+            Desktop dt = Desktop.getDesktop();
+            dt.browse(uri);
+
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(MainUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonAbrirPaginaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAbrirPagina;
@@ -263,4 +258,5 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaConsola;
     private javax.swing.JTextArea jTextAreaServidoresAtivos;
     // End of variables declaration//GEN-END:variables
+
 }
