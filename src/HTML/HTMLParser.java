@@ -154,6 +154,9 @@ public class HTMLParser {
                 "\t\t\t},function() {\n" +
                 "\t\t\t\t$(this).children(\".serverHeader\").slideToggle();\n" +
                 "\t\t\t});\n" +
+                "\t\t\tsetInterval(function(){" + 
+                "\t\t\t\tlocation.reload(); " +
+                "\t\t\t\t}, 30000);" +
                 "\t\t});\n" +
                 "\t</script>";
         
