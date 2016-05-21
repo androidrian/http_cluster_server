@@ -39,8 +39,8 @@ if((this.threadUDPServer.getState().toString()).compareTo("TERMINATED")==0){
     
   
 
-       UDPNetworkServer threadUDPServer1 = new UDPNetworkServer(SFManager);
-    threadUDPServer1.start();
+       this.threadUDPServer = new UDPNetworkServer(SFManager);
+    this.threadUDPServer.start();
 
 }else if (!this.threadUDPServer.isAlive()) {
             
