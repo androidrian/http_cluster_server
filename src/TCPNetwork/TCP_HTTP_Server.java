@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,37 +45,37 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
         try {
             serverSocket = new ServerSocket(Configuration.getTCP_Port());
 
-            while (true) {
+            while (!this.isInterrupted()) {
 
                 if (terminar) {
-                    this.interrupt();
-
                     break;
                 }
 
                 try {
-
-                    this.s = serverSocket.accept();
-
-                    br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                    pw = new PrintWriter(s.getOutputStream());
-
                     try {
-                        //aqui fazemos o get do request e passamos a string para o HTTPRequest
-                        String sReq = "";
+                        this.s = serverSocket.accept();
+                    } catch (SocketException e) {
+                    }
+                    if (!terminar) {
+                        br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                        pw = new PrintWriter(s.getOutputStream());
 
                         try {
-                            //do br temos que ler o request
-                            // ler até o request não chegar ou até br estar pronto
-                            while (br.ready() || sReq.length() == 0) {
-                                sReq += (char) br.read();
+
+                            //aqui fazemos o get do request e passamos a string para o HTTPRequest
+                            String sReq = "";
+
+                            try {
+                                //do br temos que ler o request
+                                // ler até o request não chegar ou até br estar pronto
+                                while (br.ready() || sReq.length() == 0) {
+                                    sReq += (char) br.read();
+                                }
+
+                            } catch (IOException ex) {
+                                Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            // System.out.println(sReq); //para mostrar o request
-                        } catch (IOException ex) {
-                            // Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        if (terminar) {
-                            System.out.println("passa");
+
                             //criamos o request
                             String req = HTTPRequest(sReq);
 
@@ -88,10 +89,12 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
                             pw.close();
                             br.close();
                             s.close();//o sockect é o último a ser fechado
+
+                        } catch (Exception e) {
+                            Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, e);
                         }
-                    } catch (Exception e) {
-                        Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, e);
                     }
+
                 } catch (IOException ex) {
                     Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception e) {
@@ -133,8 +136,12 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
     }
 
     public void end() {
-        System.out.println("\nServidor TCP >>> Servidor TCP terminado.");
         terminar = true;
+        try {
+            serverSocket.close();
+        } catch (IOException ex) {
+        }
+        this.interrupt();
     }
 
 }

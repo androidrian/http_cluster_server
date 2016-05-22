@@ -23,34 +23,36 @@ public class HTMLCreatorThread extends Thread {
         while (true) {
 
             if (terminar) {
-                this.interrupt();
                 break;
-            }
+            } else {
 
-            try {
-                Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
-                threadUDPNetworkDiscovery.start();
+                try {
+                    Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
+                    threadUDPNetworkDiscovery.start();
 
-                HTMLParser hp = new HTMLParser(this.SFManager);
-                hp.buildHTML(SharedFoldersManager.getDirectoryListFilenames());
+                    HTMLParser hp = new HTMLParser(this.SFManager);
+                    hp.buildHTML(SharedFoldersManager.getDirectoryListFilenames());
 
-                this.SFManager.newlistSharedFolders();
+                    this.SFManager.newlistSharedFolders();
+                    
+                   
 
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-                HTMLCreatorThread.sleep(5000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(HTMLCreatorThread.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    HTMLCreatorThread.sleep(10000);
+                } catch (InterruptedException ex) {
+                }
             }
         }
     }
 
     public void end() {
+        this.interrupt();
         terminar = true;
     }
 }

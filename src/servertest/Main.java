@@ -5,26 +5,18 @@
  */
 package servertest;
 
-import HTML.HTMLCreatorThread;
-import SharedFolders.SharedFoldersManager;
-import TCPNetwork.TCP_HTTP_Server;
 import UI.MainUI;
 
-import UDPNetwork.UDPNetworkServer;
 import java.io.IOException;
 
-
 public class Main {
-
+    
     public static void main(String[] args) throws IOException {
-       MainUI mainUI = new MainUI(new ServerManager());
-       
-       mainUI.run();
-        
-        
+
+        MainUI mainUI = new MainUI(new ServerManager());
+
+        mainUI.run();
+
     }
 
-  
-
- 
 }

@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Joao
  */
-public class SharedFoldersManager {
+public class SharedFoldersManager extends Observable {
 
     List<SharedFolder> listSharedFolders;
 
@@ -37,6 +38,9 @@ public class SharedFoldersManager {
 
     public void addSharedFolder(SharedFolder sf) {
         listSharedFolders.add(sf);
+
+        setChanged();
+        notifyObservers();
     }
 
     public static String[] getDirectoryListFilenames() throws IllegalArgumentException {
