@@ -44,7 +44,7 @@ public class HTMLCreatorThread extends Thread {
                 }
 
                 try {
-                    HTMLCreatorThread.sleep(30000);
+                    HTMLCreatorThread.sleep(15000);
                 } catch (InterruptedException ex) {
                 }
             }
