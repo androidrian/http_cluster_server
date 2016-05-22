@@ -43,7 +43,7 @@ public class UDPNetworkServer extends Thread {
                 System.out.println("\nServidor UDP >>> Pronto a receber broadcast packets!");
 
                 //receber um packet
-                byte[] recvBuf = new byte[15000];
+                byte[] recvBuf = new byte[512];
 
                 DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
 

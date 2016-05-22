@@ -6,12 +6,10 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-public class SharedFoldersManager extends Observable {
+public class SharedFoldersManager {
 
     List<SharedFolder> listSharedFolders;
 
@@ -30,9 +28,7 @@ public class SharedFoldersManager extends Observable {
 
     public void addSharedFolder(SharedFolder sf) {
         listSharedFolders.add(sf);
-
-        setChanged();
-        notifyObservers();
+        findDuplicateFiles();
     }
 
     public static String[] getDirectoryListFilenames() throws IllegalArgumentException {
@@ -53,17 +49,39 @@ public class SharedFoldersManager extends Observable {
         return new SharedFolder("", "", "", new String[1]);
     }
 
-//    private static String[] findDuplicateFiles(String[] fileList) {
-//        String[] fileListNonDuplicate = new String[fileList.length];
-//        int count = 0;
-//        Arrays.sort(fileList);
-//
-//        for (int i = 0; i < fileList.length - 1; i++) {
-//            if (!fileList[i].equalsIgnoreCase(fileList[i + 1])) {
-//                fileListNonDuplicate[count] = fileList[i];
-//                count++;
-//            }
-//        }
-//        return fileListNonDuplicate;
-//    }
+    private void findDuplicateFiles() {
+
+        //deve acabar um antes
+        int i, j;
+        for (i = 0; i < this.listSharedFolders.size() - 1; i++) {
+            String[] listFilesNames1 = this.listSharedFolders.get(i).getListFilesNames();
+
+            //deve começar um a rfrente
+            List<String> listTmp = new ArrayList<>();
+
+            for (String fileName1 : listFilesNames1) {
+
+                boolean allDiff = true;
+                for (j = 1; j < this.listSharedFolders.size(); j++) {
+
+                    String[] listFilesNames2 = this.listSharedFolders.get(j).getListFilesNames();
+                    for (String fileName2 : listFilesNames2) {
+
+                        if (fileName1.equalsIgnoreCase(fileName2)) {
+                            allDiff = false;
+                        }
+                    }
+
+                }
+                if (allDiff) {
+                    listTmp.add(fileName1);
+                }
+
+            }
+            
+            String[] strarray = listTmp.toArray(new String[listTmp.size()]);
+  
+            this.listSharedFolders.get(i).setListFilesNames(strarray);
+        }
+    }
 }

@@ -8,23 +8,21 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.io.IOException;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.FontUIResource;
-
 import Controllers.ServerController;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class MainUI extends javax.swing.JFrame {
 
@@ -91,9 +89,8 @@ public class MainUI extends javax.swing.JFrame {
         this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.black));
         this.setVisible(true);
 
-        
-        jTextFieldUDP.setText(""+Configuration.getUDP_Port());
-        jTextFieldTCP.setText(""+Configuration.getTCP_Port());
+        jTextFieldUDP.setText("" + Configuration.getUDP_Port());
+        jTextFieldTCP.setText("" + Configuration.getTCP_Port());
         jTextFieldFolder.setText(Configuration.getFilesLocation());
     }
 
@@ -265,16 +262,17 @@ public class MainUI extends javax.swing.JFrame {
             String udpPortText = jTextFieldUDP.getText();
 
             try {
-                Integer.parseInt(tcpPortText);
+                Integer.parseInt(udpPortText);
 
-                String folderLocation = jTextFieldFolder.getText();
-
+                String userName = new com.sun.security.auth.module.NTSystem().getName();
+                String folderLocation = jTextFieldFolder.getText().replaceAll("@utilizador", userName);
+            
                 File file = new File(folderLocation);
 
                 if (file.exists()) {
                     controller.setUDPPort(udpPortText);
                     controller.setTCPPort(tcpPortText);
-                    controller.setFiles_Location(folderLocation);
+                    controller.setFiles_Location(jTextFieldFolder.getText());
 
                     JOptionPane.showMessageDialog(this,
                             "Configuração guardada com sucesso!!\nDeverá reiniciar o servidor para a aplicar a nova configuração.", "RCOMP 2016", 1);

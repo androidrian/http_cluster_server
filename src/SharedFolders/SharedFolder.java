@@ -1,6 +1,5 @@
 package SharedFolders;
 
-
 public class SharedFolder {
 
     public String ipv4;
@@ -47,9 +46,9 @@ public class SharedFolder {
     }
 
     public void setListFilesNames(String[] listFilesNames) {
+
+        this.listFilesNames = new String[listFilesNames.length];
         this.listFilesNames = listFilesNames;
     }
-    
-    
 
 }
