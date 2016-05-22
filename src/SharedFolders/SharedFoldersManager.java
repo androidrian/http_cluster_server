@@ -50,13 +50,10 @@ public class SharedFoldersManager {
     }
 
     private void findDuplicateFiles() {
-
-        //deve acabar um antes
         int i, j;
         for (i = 0; i < this.listSharedFolders.size() - 1; i++) {
             String[] listFilesNames1 = this.listSharedFolders.get(i).getListFilesNames();
 
-            //deve começar um a rfrente
             List<String> listTmp = new ArrayList<>();
 
             for (String fileName1 : listFilesNames1) {
@@ -71,16 +68,13 @@ public class SharedFoldersManager {
                             allDiff = false;
                         }
                     }
-
                 }
                 if (allDiff) {
                     listTmp.add(fileName1);
                 }
-
             }
             
             String[] strarray = listTmp.toArray(new String[listTmp.size()]);
-  
             this.listSharedFolders.get(i).setListFilesNames(strarray);
         }
     }
