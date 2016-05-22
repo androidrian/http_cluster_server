@@ -1,4 +1,4 @@
-package servertest;
+package RCOMP2016;
 
 import Controllers.ServerController;
 import UI.MainUI;
