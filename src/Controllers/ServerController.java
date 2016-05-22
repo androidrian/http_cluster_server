@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servertest;
+package Controllers;
 
 import HTML.HTMLCreatorThread;
 import SharedFolders.SharedFoldersManager;
@@ -14,14 +14,14 @@ import UDPNetwork.UDPNetworkServer;
  *
  * @author Joao
  */
-public class ServerManager {
+public class ServerController {
 
     UDPNetworkServer threadUDPServer;
     HTMLCreatorThread htmlThread;
     TCP_HTTP_Server threadTCPServer;
     SharedFoldersManager SFManager;
 
-    public ServerManager() {
+    public ServerController() {
         SFManager = new SharedFoldersManager();
         this.threadUDPServer = new UDPNetworkServer(SFManager);
         this.htmlThread = new HTMLCreatorThread(SFManager);

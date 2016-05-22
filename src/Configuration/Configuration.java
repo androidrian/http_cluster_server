@@ -5,6 +5,8 @@
  */
 package Configuration;
 
+import Controllers.ConfigurationController;
+
 public class Configuration {
 
     public String udp_port;
@@ -14,14 +16,14 @@ public class Configuration {
     public String files_location;
 
     public static String getFilesLocation() {
-        return ConfigurationReader.readFiles_Location();
+        return ConfigurationController.readFiles_Location();
     }
 
     public static int getUDP_Port() {
-        return Integer.parseInt(ConfigurationReader.readUDP_Port());
+        return Integer.parseInt(ConfigurationController.readUDP_Port());
     }
 
     public static int getTCP_Port() {
-        return Integer.parseInt(ConfigurationReader.readTCP_Port());
+        return Integer.parseInt(ConfigurationController.readTCP_Port());
     }
 }
