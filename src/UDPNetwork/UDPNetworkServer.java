@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UDPNetwork;
 
 import Configuration.Configuration;
-import HTML.HTMLCreatorThread;
 import SharedFolders.SharedFolder;
 import SharedFolders.SharedFoldersManager;
 import java.io.IOException;

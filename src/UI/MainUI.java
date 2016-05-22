@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UI;
 
 import Configuration.Configuration;
 import Controllers.ConfigurationController;
-import SharedFolders.SharedFolder;
-import SharedFolders.SharedFoldersManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -20,9 +13,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Enumeration;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -36,21 +26,12 @@ import javax.swing.plaf.FontUIResource;
 import Controllers.ServerController;
 import java.io.File;
 
-/**
- *
- * @author Filipe
- */
 public class MainUI extends javax.swing.JFrame {
 
     private int xPos, yPos;
     private Dimension screenSize;
     private final ServerController serverManager;
 
-    /**
-     * Creates new form ServerGUI
-     *
-     * @param serverManager
-     */
     public MainUI(ServerController serverManager) {
         this.serverManager = serverManager;
 
@@ -107,10 +88,10 @@ public class MainUI extends javax.swing.JFrame {
         this.setLocation(xPos, yPos);
 
         this.setResizable(false);
-        // this.setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon1.png"));
         this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.black));
         this.setVisible(true);
 
+        
         jTextFieldUDP.setText(""+Configuration.getUDP_Port());
         jTextFieldTCP.setText(""+Configuration.getTCP_Port());
         jTextFieldFolder.setText(Configuration.getFilesLocation());

@@ -1,16 +1,9 @@
-/**
- * Esta class faz a gestão de todas as ligações
- */
 package TCPNetwork;
 
 import Configuration.Configuration;
-import HTML.HTMLCreatorThread;
-import HTML.HTMLParser;
-import SharedFolders.SharedFoldersManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;

@@ -3,13 +3,10 @@ package HTML;
 import Configuration.Configuration;
 import SharedFolders.SharedFolder;
 import SharedFolders.SharedFoldersManager;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.UnknownHostException;
 import java.util.List;
 
 public class HTMLParser {
