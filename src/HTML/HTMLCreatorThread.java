@@ -27,8 +27,8 @@ public class HTMLCreatorThread extends Thread {
             } else {
 
                 try {
-                    Thread threadUDPNetworkDiscovery = new UDPNetworkClient();
-                    threadUDPNetworkDiscovery.start();
+                    UDPNetworkClient uDPNetworkClient = new UDPNetworkClient();
+                    uDPNetworkClient.run();
 
                     HTMLParser hp = new HTMLParser(this.SFManager);
                     hp.buildHTML(SharedFoldersManager.getDirectoryListFilenames());

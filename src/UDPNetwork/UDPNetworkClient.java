@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UDPNetworkClient extends Thread {
+public class UDPNetworkClient implements Runnable {
 
     public DatagramSocket ds;
     public DatagramSocket dl;

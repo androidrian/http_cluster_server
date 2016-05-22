@@ -2,21 +2,21 @@ package Controllers;
 
 import HTML.HTMLCreatorThread;
 import SharedFolders.SharedFoldersManager;
-import TCPNetwork.TCP_HTTP_Server;
-import UDPNetwork.UDPNetworkServer;
+import TCPNetwork.TCP_HTTP_ServerThread;
+import UDPNetwork.UDPNetworkServerThread;
 
 public class ServerController {
 
-    UDPNetworkServer threadUDPServer;
+    UDPNetworkServerThread threadUDPServer;
     HTMLCreatorThread htmlThread;
-    TCP_HTTP_Server threadTCPServer;
+    TCP_HTTP_ServerThread threadTCPServer;
     SharedFoldersManager SFManager;
 
     public ServerController() {
         SFManager = new SharedFoldersManager();
-        this.threadUDPServer = new UDPNetworkServer(SFManager);
+        this.threadUDPServer = new UDPNetworkServerThread(SFManager);
         this.htmlThread = new HTMLCreatorThread(SFManager);
-        this.threadTCPServer = new TCP_HTTP_Server();
+        this.threadTCPServer = new TCP_HTTP_ServerThread();
     }
 
     public boolean startServer() {
@@ -27,9 +27,9 @@ public class ServerController {
 
         if (udpState.compareTo("TERMINATED") == 0 && tcpState.compareTo("TERMINATED") == 0 && htmlState.compareTo("TERMINATED") == 0) {
 
-            this.threadUDPServer = new UDPNetworkServer(SFManager);
+            this.threadUDPServer = new UDPNetworkServerThread(SFManager);
             this.htmlThread = new HTMLCreatorThread(SFManager);
-            this.threadTCPServer = new TCP_HTTP_Server();
+            this.threadTCPServer = new TCP_HTTP_ServerThread();
 
             this.threadUDPServer.start();
             this.htmlThread.start();

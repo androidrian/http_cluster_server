@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UDPNetworkServer extends Thread {
+public class UDPNetworkServerThread extends Thread {
 
     DatagramSocket socket;
 
@@ -20,7 +20,7 @@ public class UDPNetworkServer extends Thread {
 
     boolean terminar;
 
-    public UDPNetworkServer(SharedFoldersManager SFManager) {
+    public UDPNetworkServerThread(SharedFoldersManager SFManager) {
         this.SFManager = SFManager;
 
     }
@@ -101,11 +101,11 @@ public class UDPNetworkServer extends Thread {
 
             }
         } catch (SocketException ex) {
-            Logger.getLogger(UDPNetworkServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UDPNetworkServerThread.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
-            Logger.getLogger(UDPNetworkServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UDPNetworkServerThread.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(UDPNetworkServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UDPNetworkServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

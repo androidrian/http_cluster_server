@@ -13,7 +13,7 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta class torna-se numa Thread
+public class TCP_HTTP_ServerThread extends Thread { //ao extender para Thread, esta class torna-se numa Thread
 
     //DatagramSocket dataSocket = new DatagramSocket(6843);
     byte[] receivedData = new byte[1024];
@@ -27,7 +27,7 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
     PrintWriter pw;//para enviar o output para o cliente
     BufferedReader br;//para receber o input do cliente
 
-    public TCP_HTTP_Server() {
+    public TCP_HTTP_ServerThread() {
     }
 
     //thread class contem o metodo run que é chamado automaticamente quando iniciamos a thread
@@ -66,7 +66,7 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
                                 }
 
                             } catch (IOException ex) {
-                                Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(TCP_HTTP_ServerThread.class.getName()).log(Level.SEVERE, null, ex);
                             }
 
                             //criamos o request
@@ -84,19 +84,19 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
                             s.close();//o sockect é o último a ser fechado
 
                         } catch (Exception e) {
-                            Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, e);
+                            Logger.getLogger(TCP_HTTP_ServerThread.class.getName()).log(Level.SEVERE, null, e);
                         }
                     }
 
                 } catch (IOException ex) {
-                    Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TCP_HTTP_ServerThread.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception e) {
-                    Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(TCP_HTTP_ServerThread.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TCP_HTTP_ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -123,7 +123,7 @@ public class TCP_HTTP_Server extends Thread { //ao extender para Thread, esta cl
 
         } catch (IOException ex) {
 
-            Logger.getLogger(TCP_HTTP_Server.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TCP_HTTP_ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
         return response;
     }
