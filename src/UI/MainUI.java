@@ -111,6 +111,9 @@ public class MainUI extends javax.swing.JFrame {
         this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.black));
         this.setVisible(true);
 
+        jTextFieldUDP.setText(""+Configuration.getUDP_Port());
+        jTextFieldTCP.setText(""+Configuration.getTCP_Port());
+        jTextFieldFolder.setText(Configuration.getFilesLocation());
     }
 
     @SuppressWarnings("unchecked")
@@ -276,12 +279,12 @@ public class MainUI extends javax.swing.JFrame {
         String tcpPortText = jTextFieldTCP.getText();
 
         try {
-            int tcpPort = Integer.parseInt(tcpPortText);
+            Integer.parseInt(tcpPortText);
 
             String udpPortText = jTextFieldUDP.getText();
 
             try {
-                int udpPort = Integer.parseInt(tcpPortText);
+                Integer.parseInt(tcpPortText);
 
                 String folderLocation = jTextFieldFolder.getText();
 
